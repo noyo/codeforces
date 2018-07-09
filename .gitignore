@@ -1,0 +1,11 @@
+/bin
+/README.md
+/.idea
+/.settings
+/.classpath
+/.project
+/codeforces.iml
+/src/Main.java
+/src/Solution.java
+/in.txt
+/out.txt
