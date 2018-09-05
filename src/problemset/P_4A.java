@@ -1,4 +1,4 @@
-package format;
+package problemset;
 
 import java.io.*;
 
@@ -9,14 +9,19 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class P_4A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        if (n % 4 == 0 || n % 2 == 0 && n > 2) {
+            pw.print("YES");
+        } else {
+            pw.print("NO");
+        }
     }
 
     public static void main(String args[]) throws IOException {

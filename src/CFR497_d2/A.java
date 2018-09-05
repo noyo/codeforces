@@ -1,6 +1,8 @@
-package format;
+package CFR497_d2;
 
 import java.io.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,7 +11,7 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -17,6 +19,30 @@ public class IOAdvanced {
 
     private static void solve() throws IOException {
 
+        String s = nextLine();
+        boolean ans = true;
+        Set<Character> set = new HashSet<>();
+        set.add('a');
+        set.add('o');
+        set.add('u');
+        set.add('i');
+        set.add('e');
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (!set.contains(c)) {
+                if (c != 'n') {
+                    if (i == s.length() - 1 || !set.contains(s.charAt(i + 1))) {
+                        ans = false;
+                        break;
+                    }
+                }
+            }
+        }
+        if (ans) {
+            pw.print("YES");
+        } else {
+            pw.print("NO");
+        }
     }
 
     public static void main(String args[]) throws IOException {

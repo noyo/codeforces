@@ -1,4 +1,4 @@
-package format;
+package ECR47_d2;
 
 import java.io.*;
 
@@ -9,14 +9,34 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int m = nextInt();
 
+        int a[] = new int[n];
+        int b[] = new int[m];
+        for (int i = 0; i < n; i++) {
+            a[i] = nextInt();
+        }
+        for (int i = 0; i < m; i++) {
+            b[i] = nextInt();
+        }
+
+        int ans = 0;
+        int j = 0;
+        for (int i = 0; j < m && i < n; i++) {
+            if (b[j] >= a[i]) {
+                j++;
+                ans++;
+            }
+        }
+        pw.print(ans);
     }
 
     public static void main(String args[]) throws IOException {

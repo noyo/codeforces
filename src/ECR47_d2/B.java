@@ -1,6 +1,7 @@
-package format;
+package ECR47_d2;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,49 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        String s = nextLine();
 
+        if (s.length() <= 1) {
+            pw.print(s);
+            return;
+        }
+        char ch[] = s.toCharArray();
+        if (s.indexOf('2') == -1 || s.indexOf('0') == -1) {
+            Arrays.sort(ch);
+            pw.print(String.valueOf(ch));
+            return;
+        }
+        if (s.indexOf('1') == -1) {
+            pw.print(s);
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        int insert1 = -1;
+        for (int i = 0; i < ch.length; i++) {
+            if (ch[i] == '0') {
+                sb.append('0');
+            } else if (ch[i] == '2') {
+                if (insert1 == -1) {
+                    insert1 = sb.length();
+                }
+                sb.append('2');
+            }
+        }
+        int k = s.length() - sb.length();
+        for (int j = 0; j < k; j++) {
+            sb.insert(insert1++, '1');
+        }
+
+        pw.print(sb.toString());
     }
 
     public static void main(String args[]) throws IOException {

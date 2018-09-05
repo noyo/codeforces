@@ -1,8 +1,6 @@
 package CFR495_div2;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -13,46 +11,28 @@ import java.util.Scanner;
  * @see CFR493.div2
  */
 public class B {
-//
-//    private static class T{
-//        int l;
-//        int r;
-//        int d;
-//
-//        T(int l, int r, int d) {
-//            this.l = l;
-//            this.r = r;
-//            this.d = d;
-//        }
-//    }
 
-    private static void dfs(int res[], int cnt[]) {
-
-    }
-
-    private static void solve(Scanner sc) {
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int cnt[] = new int[n];
-
-        for (int i = 0; i < m; i++) {
-            int l = sc.nextInt();
-            int r = sc.nextInt();
-            int d = r - l;
-            if (d > 1) {
-                for (int j = l; j <= r; j++) {
-                    cnt[j]++;
-                }
-            }
+    private static void solve(StreamTokenizer st, PrintWriter pw) throws IOException {
+        st.nextToken();
+        int n = (int) st.nval;
+        for (int i = 0; i < n; i++) {
+            pw.print(i % 2);
         }
-
-
     }
 
-    public static void main(String args[]) throws FileNotFoundException {
-        System.setIn(new FileInputStream("in.txt"));
-        System.setOut(new PrintStream("out.txt"));
+    public static void main(String args[]) throws IOException {
+        boolean oj = System.getProperty("ONLINE_JUDGE") != null;
+        if (!oj) {
+            System.setIn(new FileInputStream("src/in.txt"));
+        }
+        StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
+        PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out));
 
-        solve(new Scanner(System.in));
+        long t = System.currentTimeMillis();
+        solve(st, pw);
+        if (!oj) {
+            pw.println("[" + (System.currentTimeMillis() - t) + "ms]");
+        }
+        pw.flush();
     }
 }

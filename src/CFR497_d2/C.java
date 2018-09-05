@@ -1,6 +1,7 @@
-package format;
+package CFR497_d2;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,30 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        List<Integer> list = new ArrayList<>(n);
 
+        for (int i = 0; i < n; i++) {
+            list.add(nextInt());
+        }
+        list.sort(Comparator.naturalOrder());
+
+        int max = 0;
+        int pre = 0;
+        for (int i = 1; i < n; i++) {
+            if (list.get(i) > list.get(pre)) {
+                max++;
+                pre++;
+            }
+        }
+        pw.print(max);
     }
 
     public static void main(String args[]) throws IOException {

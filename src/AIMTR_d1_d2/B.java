@@ -1,6 +1,8 @@
-package format;
+package AIMTR_d1_d2;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +11,24 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int m = nextInt();
 
+        for (int i = 0; i < n; i++) {
+            pw.print(1);
+        }
+        pw.println();
+        for (int i = 0; i < n - 1; i++) {
+            pw.print(8);
+        }
+        pw.print(9);
     }
 
     public static void main(String args[]) throws IOException {

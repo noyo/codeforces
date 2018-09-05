@@ -1,4 +1,4 @@
-package format;
+package MTC_d1_d2;
 
 import java.io.*;
 
@@ -9,14 +9,26 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
 
+        int ans = 0;
+        int cur = 1;
+        int tmp = 0;
+        while (n > 0) {
+            ans++;
+            n -= cur;
+            tmp += cur;
+            cur = tmp + 1;
+
+        }
+        pw.print(ans);
     }
 
     public static void main(String args[]) throws IOException {

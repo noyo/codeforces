@@ -1,6 +1,7 @@
-package format;
+package ECR49_d2;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,38 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class F {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int a[] = new int[n];
+        int b[] = new int[n];
+        Map<Integer, Set<Integer>> map = new HashMap<>();
+        List<Integer> date = new ArrayList<>();
 
+        for (int i = 0; i < n; i++) {
+            a[i] = nextInt();
+            b[i] = nextInt();
+
+            if (!map.containsKey(a[i])) {
+                date.add(a[i]);
+                map.put(a[i], new HashSet<>());
+            }
+            if (!map.containsKey(b[i])) {
+                date.add(b[i]);
+                map.put(b[i], new HashSet<>());
+            }
+            map.get(a[i]).add(i);
+            map.get(b[i]).add(i);
+        }
+
+        date.sort(Comparator.naturalOrder());
+
+        
     }
 
     public static void main(String args[]) throws IOException {

@@ -1,4 +1,4 @@
-package format;
+package CFR498_d3;
 
 import java.io.*;
 
@@ -9,14 +9,47 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class D {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        nextLine();
+        char[] a = nextLine().toCharArray();
+        char[] b = nextLine().toCharArray();
 
+        int max = 0;
+        int mid = (n - 1) / 2;
+        for (int i = 0; i <= mid; i++) {
+            if (i == mid && n % 2 == 1) {
+                if (a[i] != b[i]) {
+                    max++;
+                }
+                break;
+            }
+            if (b[i] == b[n - 1 - i]) {
+                if (a[i] != a[n - 1 - i]) {
+                    max++;
+                }
+                continue;
+            }
+            int[] cnt = new int[128];
+            cnt[b[i]]++;
+            cnt[b[n - 1 - i]]++;
+            cnt[a[i]]--;
+            cnt[a[n - 1 - i]]--;
+
+            if (cnt[b[i]] > 0) {
+                max += cnt[b[i]];
+            }
+            if (cnt[b[n - 1 - i]] > 0) {
+                max += cnt[b[n - 1 - i]];
+            }
+        }
+        pw.print(max);
     }
 
     public static void main(String args[]) throws IOException {

@@ -1,4 +1,4 @@
-package format;
+package AIMTR_d1_d2;
 
 import java.io.*;
 
@@ -9,14 +9,30 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int m = nextInt();
+        nextLine();
+        int r1 = n, r2 = 1;
+        int c1 = m, c2 = 1;
+        for (int i = 0; i < n; i++) {
+            String s = nextLine();
+            int left = s.indexOf('B');
+            if (left > -1) {
+                r1 = Math.min(r1, i + 1);
+                r2 = Math.max(r2, i + 1);
+                c1 = Math.min(c1, left + 1);
+                c2 = Math.max(c2, s.lastIndexOf('B') + 1);
+            }
+        }
 
+        pw.print((r1 + r2) / 2 + " " + ((c1 + c2) / 2));
     }
 
     public static void main(String args[]) throws IOException {

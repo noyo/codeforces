@@ -1,4 +1,4 @@
-package format;
+package CRF500_d2;
 
 import java.io.*;
 
@@ -9,7 +9,7 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class E {
 
     private static BufferedReader br;
     private static StreamTokenizer st;

@@ -1,6 +1,9 @@
-package format;
+package CRF500_d2;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +12,38 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        List<Integer> list = new ArrayList<>();
 
+        int minSub = Integer.MAX_VALUE;
+        for (int i = 0; i < (n << 1); i++) {
+            list.add(nextInt());
+        }
+        list.sort(Comparator.naturalOrder());
+
+        for (int i = 0; i < (n << 1); i++) {
+            if (i >= n && i < ((n << 1) - 1)) {
+                minSub = Math.min(minSub, list.get(i) - list.get(i - n + 1));
+            }
+        }
+
+        long x = list.get(n - 1) - list.get(0);
+        long y = list.get(2 * n - 1) - list.get(n);
+        long min = x * y;
+
+        if (n >= 2) {
+            x = list.get(2 * n - 1) - list.get(0);
+            y = minSub;
+            min = Math.min(min, x * y);
+        }
+        pw.print(min);
     }
 
     public static void main(String args[]) throws IOException {

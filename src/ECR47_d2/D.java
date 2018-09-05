@@ -1,4 +1,4 @@
-package format;
+package ECR47_d2;
 
 import java.io.*;
 
@@ -9,14 +9,77 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class D {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
-    private static void solve() throws IOException {
 
+    private static int gcd(int a, int b) {
+        while (b != 0) {
+            int tmp = a % b;
+            a = b;
+            b = tmp;
+        }
+        return a;
+    }
+
+    private static void solve() throws IOException {
+        long n = nextLong();
+        long m = nextLong();
+
+        if (m < n - 1 || m > n * (n - 1) / 2) {
+            pw.print("Impossible");
+            return;
+        }
+
+        int V[] = new int[(int) m];
+        int v = 0;
+        int U[] = new int[(int) m];
+        int u = 0;
+        for (int i = 1; i <= n; i++) {
+            if (v >= m) {
+                break;
+            }
+            for (int j = i + 1; j <= n; j++) {
+                if (v >= m) {
+                    break;
+                }
+                if (i == 1) {
+                    V[v++] = i;
+                    U[u++] = j;
+                    continue;
+                }
+                if (i == 2) {
+                    if (j % 2 == 1) {
+                        V[v++] = i;
+                        U[u++] = j;
+                        j++;
+                    }
+                    continue;
+                }
+                if (gcd(i, j) == 1) {
+                    V[v++] = i;
+                    U[u++] = j;
+                }
+                if (i % 2 == 0) {
+                    j++;
+                }
+            }
+        }
+
+        if (v < m) {
+            pw.print("Impossible");
+            return;
+        }
+        pw.println("Possible");
+        for (int i = 0; i < m; i++) {
+            pw.print(V[i] + " " + U[i]);
+            if (i != m - 1) {
+                pw.println();
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {

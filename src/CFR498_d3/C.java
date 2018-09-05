@@ -1,4 +1,6 @@
-package format;
+package CFR498_d3;
+
+import sun.print.SunMinMaxPage;
 
 import java.io.*;
 
@@ -9,14 +11,42 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        long d[] = new long[n + 1];
 
+        for (int i = 1; i <= n; i++) {
+            d[i] = nextLong();
+        }
+
+        long max = 0;
+        int i = 1;
+        int j = n;
+        long left = d[i];
+        long right = d[j];
+        while (i < j) {;
+
+            if (left == right) {
+                max = Math.max(max, left);
+                i++;
+                j--;
+                left += d[i];
+                right += d[j];
+            } else if (left < right) {
+                i++;
+                left += d[i];
+            } else {
+                j--;
+                right += d[j];
+            }
+        }
+        pw.print(max);
     }
 
     public static void main(String args[]) throws IOException {

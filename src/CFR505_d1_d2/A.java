@@ -1,6 +1,9 @@
-package format;
+package CFR505_d1_d2;
 
 import java.io.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +12,32 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        nextLine();
 
+        char ch[] = nextLine().toCharArray();
+        Set<Character> set = new HashSet<>();
+        Set<Character> cnt = new HashSet<>();
+        for (int i = 0; i < ch.length; i++) {
+            if (!set.contains(ch[i])) {
+                set.add(ch[i]);
+            } else {
+                pw.print("Yes");
+                return;
+            }
+        }
+        if (set.size() == 1) {
+            pw.print("Yes");
+        } else {
+            pw.print("No");
+        }
     }
 
     public static void main(String args[]) throws IOException {

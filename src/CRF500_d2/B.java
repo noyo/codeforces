@@ -1,4 +1,4 @@
-package format;
+package CRF500_d2;
 
 import java.io.*;
 
@@ -9,14 +9,43 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int x = nextInt();
+        int a[] = new int[100001];
+        int b[] = new int[100001];
 
+        int ans = -1;
+        for (int i = 0; i < n; i++) {
+            int num = nextInt();
+            a[num]++;
+            if (a[num] >= 2) {
+                pw.print(0);
+                return;
+            }
+            int tmp = num & x;
+            if (tmp != num) {
+                b[tmp]++;
+            }
+        }
+
+        for (int i = 0; i <= 100000; i++) {
+            if (a[i] == 1 && b[i] >= 1) {
+                ans = 1;
+                break;
+            }
+            if (b[i] >= 2) {
+                ans = 2;
+            }
+        }
+
+        pw.print(ans);
     }
 
     public static void main(String args[]) throws IOException {

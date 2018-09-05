@@ -1,6 +1,7 @@
-package format;
+package ECR47_d2;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,31 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        long n = nextLong();
+        int m = nextInt();
+//        long a[] = new long[n + 1];
+//        Arrays.fill(a, 0);
 
+        double sum = 0;
+        long mid = (n + 1) / 2;
+        for (int i = 0; i < m; i++) {
+            int x = nextInt();
+            int d = nextInt();
+            sum += x * n;
+            if (d < 0) {
+                sum += (mid * (mid - 1) / 2 + (n - mid) * (n - mid + 1) / 2) * d;
+            } else if (d > 0) {
+                sum += n * (n - 1) / 2 * d;
+            }
+        }
+        pw.print(sum / n);
     }
 
     public static void main(String args[]) throws IOException {

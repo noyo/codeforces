@@ -1,21 +1,47 @@
-package format;
+package CMR2;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
  *
  * @author Chris
- * 2018/7/9 15:33
- * @see format
+ * 2018/7/25 12:20
+ * @see CMR2
  */
-public class IOAdvanced {
-
+public class A {
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int N = nextInt();
+        int S = nextInt();
+        int C = nextInt();
+        int H = nextInt();
+        int U = nextInt();
+        
+        nextLine();
+        char[] stripe = nextLine().toCharArray();
+        char[] hands = nextLine().toCharArray();
+        char[] bag = nextLine().toCharArray();
+        int useI = 0;
+
+        Map<Character, Integer> pre = new HashMap<>();
+        Map<Character, int[]> next = new HashMap<>();
+        for (int i = 0; i < N; i++) {
+            char ch = stripe[i];
+            if (pre.containsKey(ch)) {
+                if (!next.containsKey(ch)) {
+                    next.put(ch, new int[N]);
+                }
+                next.get(ch)[pre.get(ch)] = i;
+            }
+            pre.put(ch, i);
+        }
+
 
     }
 

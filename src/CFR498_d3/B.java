@@ -1,6 +1,9 @@
-package format;
+package CFR498_d3;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +12,59 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
-    private static void solve() throws IOException {
+    static class Point implements Comparable {
+        int index;
+        int val;
 
+        Point(int index, int va) {
+            this.index = index;
+            this.val = va;
+        }
+
+        @Override
+        public int compareTo(Object o) {
+            Point p = (Point) o;
+            return -val + p.val;
+        }
+    }
+
+    private static void solve() throws IOException {
+        int n = nextInt();
+        int k = nextInt();
+
+
+        PriorityQueue<Point> queue = new PriorityQueue<>(Comparator.naturalOrder());
+        int a[] = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            a[i] = nextInt();
+            Point point = new Point(i, a[i]);
+            queue.offer(point);
+        }
+
+        int sum = 0;
+        int b[] = new int[k + 1];
+        for (int i = 1; i <= k; i++) {
+            b[i] = queue.poll().index;
+            sum += a[b[i]];
+        }
+        Arrays.sort(b);
+        pw.println(sum);
+        for (int i = 1; i <= k; i++) {
+            if (i < k) {
+                pw.print(b[i] - b[i - 1]);
+            } else {
+                pw.print(n - b[i - 1]);
+            }
+            if (i < k) {
+                pw.print(" ");
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {

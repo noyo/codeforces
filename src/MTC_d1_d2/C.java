@@ -1,4 +1,4 @@
-package format;
+package MTC_d1_d2;
 
 import java.io.*;
 
@@ -9,14 +9,31 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        nextLine();
+        char a[] = nextLine().toCharArray();
+        char b[] = nextLine().toCharArray();
 
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (a[i] == b[i]) {
+                continue;
+            }
+            if (i < n - 1 && a[i + 1] != b[i + 1] && a[i] != a[i + 1]) {
+                i++;
+                ans++;
+            } else {
+                ans++;
+            }
+        }
+        pw.print(ans);
     }
 
     public static void main(String args[]) throws IOException {

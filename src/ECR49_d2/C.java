@@ -1,6 +1,7 @@
-package format;
+package ECR49_d2;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,59 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int T = nextInt();
 
+        while (T-- > 0) {
+            nextLine();
+            int n = nextInt();
+            int a[] = new int[10001];
+            PriorityQueue<Integer> queue = new PriorityQueue<>();
+            Set<Integer> set = new HashSet<>();
+
+            boolean flag = false;
+            for (int i = 0; i < n; i++) {
+                int b = nextInt();
+                a[b]++;
+                if (a[b] >= 4) {
+                    pw.print(b + " " + b + " " + b + " " + b);
+                    flag = true;
+                    break;
+                }
+                if (a[b] >= 2 && !set.contains(b)) {
+                    queue.offer(b);
+                    set.add(b);
+                }
+            }
+
+            if (!flag) {
+                double poll = queue.poll();
+                double min = (queue.peek() - poll) / poll;
+                int k1 = (int) poll;
+                int k2 = queue.peek();
+                poll = queue.poll();
+                while (!queue.isEmpty()) {
+                    double tmp = (queue.peek() - poll) / poll;
+                    if (tmp < min) {
+                        min = tmp;
+                        k1 = (int) poll;
+                        k2 = queue.peek();
+                    }
+                    poll = queue.poll();
+                }
+                pw.print(k1 + " " + k2 + " " + k2 + " " + k1);
+            }
+
+            if (T > 0) {
+                pw.println();
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {

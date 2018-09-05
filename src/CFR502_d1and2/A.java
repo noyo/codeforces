@@ -1,6 +1,7 @@
-package format;
+package CFR502_d1and2;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,41 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
 
+        int a[] = new int[n];
+        Integer order[] = new Integer[n];
+
+        for (int i = 0; i < n; i++) {
+            a[i] = nextInt();
+            a[i] += nextInt();
+            a[i] += nextInt();
+            a[i] += nextInt();
+            order[i] = i;
+        }
+
+        Arrays.sort(order, (o1, o2) -> {
+            if (a[o1] == a[o2]) {
+                return o1 - o2;
+            }
+            return -a[o1] + a[o2];
+        });
+
+        int rank = 1;
+        for (int i = 0; i < n; i++) {
+            if (order[i] == 0) {
+                pw.print(rank);
+                return;
+            }
+            rank++;
+        }
     }
 
     public static void main(String args[]) throws IOException {

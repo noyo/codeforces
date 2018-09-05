@@ -1,4 +1,4 @@
-package format;
+package CRF500_d2;
 
 import java.io.*;
 
@@ -9,14 +9,31 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int a[] = new int[n];
+        int b[] = new int[n];
 
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            a[i] = nextInt();
+            sum += a[i];
+        }
+        for (int i = 0; i < n; i++) {
+            b[i] = nextInt();
+            sum -= b[i];
+        }
+        if (sum < 0) {
+            pw.print("No");
+        } else {
+            pw.print("Yes");
+        }
     }
 
     public static void main(String args[]) throws IOException {

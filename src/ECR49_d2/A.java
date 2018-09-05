@@ -1,4 +1,4 @@
-package format;
+package ECR49_d2;
 
 import java.io.*;
 
@@ -9,14 +9,47 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int T = nextInt();
+        while (T-- > 0) {
+            int n = nextInt();
+            nextLine();
+            String s = nextLine();
 
+            boolean flag = true;
+            for (int i = 0; i < n / 2; i++) {
+                char left = s.charAt(i);
+                char right = s.charAt(n - i - 1);
+                if (left == 'a') {
+                    if (right != 'a' && right != 'c') {
+                        flag = false;
+                        break;
+                    }
+                } else if (left == 'z') {
+                    if (right != 'z' && right != 'x') {
+                        flag = false;
+                        break;
+                    }
+                } else if (left != right && Math.abs(left - right) != 2) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                pw.print("YES");
+            } else {
+                pw.print("NO");
+            }
+            if (T > 0) {
+                pw.println();
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {

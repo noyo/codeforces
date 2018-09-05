@@ -1,6 +1,7 @@
-package format;
+package MTC_d1_d2;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,45 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int s = nextInt();
 
+        int a[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = nextInt();
+        }
+        if (n == 1) {
+            pw.print(Math.abs(s - a[0]));
+            return;
+        }
+
+
+        Arrays.sort(a);
+        int mid = n / 2;
+        long ans = 0;
+        if (a[mid] < s) {
+            for (int i = mid; i < n; i++) {
+                if (a[i] >= s) {
+                    break;
+                }
+                ans += s - a[i];
+            }
+        } else if (a[mid] > s){
+            for (int i = mid; i >= 0; i--) {
+                if (a[i] <= s) {
+                    break;
+                }
+                ans += a[i] - s;
+            }
+        }
+        pw.print(ans);
     }
 
     public static void main(String args[]) throws IOException {

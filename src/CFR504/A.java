@@ -1,4 +1,4 @@
-package format;
+package CFR504;
 
 import java.io.*;
 
@@ -9,13 +9,53 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int m = nextInt();
+        nextLine();
+        String s = nextLine();
+        String t = nextLine();
+
+        if (n > m + 1) {
+            pw.print("NO");
+            return;
+        }
+        int index = s.indexOf('*');
+        if (index == -1) {
+            if (s.equals(t)) {
+                pw.print("YES");
+                return;
+            }
+            pw.print("NO");
+            return;
+        }
+        for (int i = 0; i < index; i++) {
+            if (s.charAt(i) != t.charAt(i)) {
+                pw.print("NO");
+                return;
+            }
+        }
+        int cur = m;
+        for (int i = n - 1; i > index; i--){
+            cur = m - (n - i);
+            if (s.charAt(i) != t.charAt(cur)) {
+                pw.print("NO");
+                return;
+            }
+        }
+        for (int i = index; i < cur; i++) {
+            if (t.charAt(i) < 'a' || t.charAt(i) > 'z') {
+                pw.print("NO");
+                return;
+            }
+        }
+        pw.print("YES");
 
     }
 
