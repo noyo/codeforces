@@ -1,4 +1,4 @@
-package format;
+package CFR507_d2;
 
 import java.io.*;
 
@@ -9,14 +9,51 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int k = nextInt();
 
+        if (n <= 2 * k + 1) {
+            pw.println(1);
+            pw.print((n + 1) / 2);
+            return;
+        }
+
+        int ans = n / (2 * k + 1);
+        int r = n % (2 * k + 1);
+        if (r == 0) {
+            pw.println(ans);
+            int cur = k + 1;
+            pw.print(cur);
+            cur += 2 * k + 1;
+            for (int i = 2; i <= ans; i++) {
+                pw.print(" " + cur);
+                cur += 2 * k + 1;
+            }
+        } else if (r >= k + 1) {
+            pw.println(ans + 1);
+            pw.print(r - k);
+            int cur = r + k + 1;
+            for (int i = 1; i <= ans; i++) {
+                pw.print(" " + cur);
+                cur += 2 * k + 1;
+            }
+        } else {
+            pw.println(ans + 1);
+            int pre = (2 * k + 1 + r) / 2;
+            pw.print(pre - k);
+            int cur = pre + k + 1;
+            for (int i = 1; i <= ans; i++) {
+                pw.print(" " + cur);
+                cur += 2 * k + 1;
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +83,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

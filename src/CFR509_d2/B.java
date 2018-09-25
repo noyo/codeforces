@@ -1,4 +1,4 @@
-package format;
+package CFR509_d2;
 
 import java.io.*;
 
@@ -9,14 +9,35 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
-    private static void solve() throws IOException {
+    private static long gcd(long a, long b) {
+        while (b != 0) {
+            long tmp = a % b;
+            a = b;
+            b = tmp;
+        }
+        return a;
+    }
 
+    private static void solve() throws IOException {
+        String ss[] = nextSS(" ");
+        long a = Long.parseLong(ss[0]);
+        long b = Long.parseLong(ss[1]);
+        long x = Long.parseLong(ss[2]);
+        long y = Long.parseLong(ss[3]);
+
+        long gcd = gcd(x, y);
+        long minX = x / gcd;
+        long minY = y / gcd;
+
+        long ans = Math.min(a / minX, b / minY);
+
+        pw.println(ans);
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +67,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

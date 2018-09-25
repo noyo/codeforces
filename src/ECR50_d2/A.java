@@ -1,6 +1,8 @@
-package format;
+package ECR50_d2;
 
 import java.io.*;
+import java.math.BigInteger;
+import java.util.Scanner;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +11,29 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        Scanner sc = new Scanner(System.in);
+        long n = sc.nextLong();
+        long k = sc.nextLong();
 
+        long ans = k / n;
+        if (k % n != 0) {
+            pw.print(k / n + 1);
+        } else {
+            pw.print(k / n);
+        }
+
+//        String ss[] = nextLine().split(" ");
+//        BigInteger n = new BigInteger(ss[0]);
+//        BigInteger k = new BigInteger(ss[1]);
+//
+//        pw.print(k.add(new BigInteger(String.valueOf(n.add(new BigInteger("-1"))))).divide(n));
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +63,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

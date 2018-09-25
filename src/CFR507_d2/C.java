@@ -1,6 +1,7 @@
-package format;
+package CFR507_d2;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,67 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        long t = nextLong();
+        long a[] = new long[n + 1];
+        for (int i = 1; i <= n; i++) {
+            a[i] = nextLong();
+        }
 
+        int x[] = new int[n + 1];
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        Set<Integer> set = new HashSet<>();
+        for (int i = 1; i <= n; i++) {
+            x[i] = nextInt();
+            if (x[i] == i) {
+                queue.offer(x[i]);
+                set.add(i);
+            }
+        }
+
+        long b[] = new long[n + 1];
+        int cnt = 0;
+        while (!queue.isEmpty()) {
+            int poll = queue.poll();
+            if (!set.contains(poll)) {
+                pw.print("No");
+                return;
+            }
+            int idx = poll;
+            cnt++;
+            if (idx == n) {
+                b[idx] = a[idx] + t + n;
+            } else {
+                b[idx] = a[idx + 1] + t - 1;
+            }
+            while (x[idx - 1] == poll) {
+                idx--;
+                cnt++;
+                b[idx] = b[idx + 1] - 1;
+                if (b[idx] < a[idx + 1] + t) {
+                    pw.print("No");
+                    return;
+                }
+            }
+        }
+        if (cnt != n || b[1] < 1) {
+            pw.print("No");
+            return;
+        }
+        pw.println("Yes");
+        for (int i = 1; i <= n; i++) {
+            pw.print(b[i]);
+            if (i < n) {
+                pw.print(" ");
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +100,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

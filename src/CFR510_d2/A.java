@@ -1,6 +1,7 @@
-package format;
+package CFR510_d2;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,29 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int m = nextInt();
+        int a[] = new int[n];
+        int sum = 0;
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            a[i] = nextInt();
+            sum += a[i];
+            max = Math.max(max, a[i]);
+        }
+        Arrays.sort(a);
 
+        int maxK = max + m;
+        int minK = Math.max(max, (sum + m + n - 1) / n);
+
+        pw.print(minK + " " + maxK);
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +62,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

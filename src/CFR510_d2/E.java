@@ -1,4 +1,4 @@
-package format;
+package CFR510_d2;
 
 import java.io.*;
 
@@ -9,7 +9,7 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class E {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -46,7 +46,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

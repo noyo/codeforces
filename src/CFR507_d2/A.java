@@ -1,4 +1,4 @@
-package format;
+package CFR507_d2;
 
 import java.io.*;
 
@@ -9,14 +9,47 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int a = nextInt();
+        int b = nextInt();
+        int c[] = new int[n];
 
+        for (int i = 0; i < n; i++) {
+            c[i] = nextInt();
+        }
+
+        int ans = 0;
+        for (int i = 0, j = n - 1; i <= j; i++, j--) {
+            if (i == j) {
+                if (c[i] == 2) {
+                    ans += Math.min(a, b);
+                }
+            } else {
+                if (c[i] == 2 || c[j] == 2) {
+                    if (c[i] == 2 && c[j] == 2) {
+                        ans += Math.min(a, b) * 2;
+                    } else {
+                        if (c[i] == 0 || c[j] == 0) {
+                            ans += a;
+                        } else {
+                            ans += b;
+                        }
+                    }
+                } else if (c[i] != c[j]){
+                    pw.print(-1);
+                    return;
+                }
+            }
+        }
+
+        pw.print(ans);
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +79,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

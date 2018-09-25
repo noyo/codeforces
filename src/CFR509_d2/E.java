@@ -1,6 +1,7 @@
-package format;
+package CFR509_d2;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,65 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class E {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
 
+        int cnt[] = new int[1001];
+        for (int i = 1; i < n; i++) {
+            int a = nextInt();
+            int b = nextInt();
+            if (a < b) {
+                a ^= b;
+                b ^= a;
+                a ^= b;
+            }
+            if (a != n || a == b) {
+                pw.print("NO");
+                return;
+            }
+            cnt[b]++;
+        }
+
+        Set<Integer> set = new HashSet<>();
+        Set<int[]> pair = new HashSet<>();
+        for (int i = 1; i < n; i++) {
+            if (cnt[i] == 0) {
+                set.add(i);
+                continue;
+            }
+            if (cnt[i] - 1 > set.size()) {
+                pw.print("NO");
+                return;
+            }
+            int pre = i;
+            Iterator<Integer> it = null;
+            for (int j = 1; j < cnt[i]; j++) {
+                if (null == it) {
+                    it = set.iterator();
+                }
+                int next = it.next();
+                it.remove();
+                pair.add(new int[]{pre, next});
+                pre = next;
+            }
+            pair.add(new int[]{pre, n});
+        }
+        if (set.size() > 0) {
+            pw.print("NO");
+            return;
+        }
+        pw.println("YES");
+        Iterator<int[]> it = pair.iterator();
+        while (it.hasNext()) {
+            int p[] = it.next();
+            pw.println(p[0] + " " + p[1]);
+        }
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +98,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

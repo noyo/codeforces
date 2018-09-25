@@ -1,6 +1,8 @@
-package format;
+package ECR51_d2;
 
 import java.io.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +11,34 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
+    private static long gcd(long a, long b) {
+        while (b != 0) {
+            long tmp = a % b;
+            a = b;
+            b = tmp;
+        }
+        return a;
+    }
+
     private static void solve() throws IOException {
 
+        String ss[] = nextSS(" ");
+        long l = Long.parseLong(ss[0]);
+        long r = Long.parseLong(ss[1]);
+
+        pw.println("YES");
+        for (long i = l; i <= r; i += 2) {
+            pw.print(i + " " + (i + 1));
+            if (i < r - 1) {
+                pw.println();
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +68,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

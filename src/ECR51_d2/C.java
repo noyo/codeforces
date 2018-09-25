@@ -1,6 +1,9 @@
-package format;
+package ECR51_d2;
 
 import java.io.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +12,57 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        int s[] = new int[n];
+        int cnt[] = new int[101];
+        for (int i = 0; i < n; i++) {
+            s[i] = nextInt();
+            cnt[s[i]]++;
+        }
+        int single = 0;
+        int mul = 0;
+        for (int i = 1; i < 101; i++) {
+            if (cnt[i] == 1) {
+                single++;
+            } else if (cnt[i] > 2) {
+                mul++;
+            }
+        }
+        if (single % 2 == 1 && mul == 0) {
+            pw.println("NO");
+            return;
+        }
+        int k = -1;
+        for (int i = 0; i < n; i++) {
+            if (cnt[s[i]] > 2) {
+                k = i;
+                break;
+            }
+        }
+        pw.println("YES");
+        boolean flag = false;
+        for (int i = 0; i < n; i++) {
+            if (cnt[s[i]] != 1) {
+                if (k == i && single % 2 == 1) {
+                    pw.print("B");
+                } else {
+                    pw.print("A");
+                }
+            } else if (!flag) {
+                flag = !flag;
+                pw.print("A");
+            } else {
+                flag = !flag;
+                pw.print("B");
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +92,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

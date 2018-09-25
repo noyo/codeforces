@@ -1,4 +1,4 @@
-package format;
+package ECR51_d2;
 
 import java.io.*;
 
@@ -9,14 +9,28 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class D {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
-    private static void solve() throws IOException {
+    static final int MOD = 998244353;
 
+    private static void solve() throws IOException {
+        int n = nextInt();
+        int k = nextInt();
+        if (k == 1) {
+            pw.print(2);
+            return;
+        }
+
+        long ans = 0;
+        for (int i = k - 2; i <= 2 * n - k + 1; i++) {
+            if (i <= n) {
+
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +60,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

@@ -1,6 +1,7 @@
-package format;
+package CFR509_d2;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +10,65 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int m = nextInt();
+        int d = nextInt();
+        int a[] = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            int val = nextInt();
+            a[i] = val;
+        }
+        Integer order[] = new Integer[n + 1];
+        for (int i = 0; i <= n; i++) {
+            order[i] = i;
+        }
+        Arrays.sort(order, Comparator.comparingInt(o -> a[o]));
+        int cnt = 0;
+        int low = 1;
+        int high = n;
 
+        while (low < high) {
+            int mid = (low + high) / 2;
+            boolean flag = true;
+            for (int i = 1; i <= mid; i++) {
+                for (int j = i + mid; j <= n; j += mid) {
+                    if (a[order[j]] - a[order[j - mid]] <= d) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    break;
+                }
+            }
+            if (!flag) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        cnt = low;
+        Map<Integer, Integer> days = new HashMap<>();
+        for (int i = 1; i <= cnt; i++) {
+            for (int j = i; j <= n; j += cnt) {
+                days.put(order[j], i);
+            }
+        }
+
+        pw.println(cnt);
+        for (int i = 1; i <= n; i++) {
+            pw.print(days.get(i));
+            if (i < n) {
+                pw.print(" ");
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +98,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

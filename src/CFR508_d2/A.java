@@ -1,6 +1,8 @@
-package format;
+package CFR508_d2;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -9,14 +11,35 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int k = nextInt();
+        char max = (char) ('A' + (k - 1));
 
+        nextLine();
+        char ch[] = nextLine().toCharArray();
+
+        Map<Character, Integer> cnt = new HashMap<>();
+        for (char c : ch) {
+            if (c <= max) {
+                cnt.put(c, cnt.getOrDefault(c, 0) + 1);
+            }
+        }
+        if (cnt.size() < k) {
+            pw.print(0);
+            return;
+        }
+        int min = n;
+        for (char c : cnt.keySet()) {
+            min = Math.min(min, cnt.get(c));
+        }
+        pw.print(min * k);
     }
 
     public static void main(String args[]) throws IOException {
@@ -46,7 +69,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {

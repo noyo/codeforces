@@ -1,4 +1,4 @@
-package format;
+package ECR50_d2;
 
 import java.io.*;
 
@@ -9,13 +9,65 @@ import java.io.*;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class D {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        long a[] = new long[n];
+        long sumA = 0;
+
+        for (int i = 0; i < n; i++) {
+            a[i] = nextLong();
+            sumA += a[i];
+        }
+
+        int m = nextInt();
+        long b[] = new long[m];
+        long sumB = 0;
+        for (int i = 0; i < m; i++) {
+            b[i] = nextLong();
+            sumB += b[i];
+        }
+
+        if (sumA != sumB) {
+            pw.print(-1);
+        } else {
+            int j = 0;
+            int i = 0;
+            int ans = 0;
+            while (i < n && j < m) {
+                if (a[i] == b[j]) {
+                    i++;
+                    j++;
+                    ans++;
+                } else if (a[i] < b[j]) {
+                    if (i < n - 1) {
+                        i++;
+                        a[i] += a[i - 1];
+                    } else {
+                        pw.print(-1);
+                        return;
+                    }
+                } else {
+                    if (j < m - 1) {
+                        j++;
+                        b[j] += b[j - 1];
+                    } else {
+                        pw.print(-1);
+                        return;
+                    }
+                }
+            }
+            if (i != n || j != m) {
+                pw.print(-1);
+            } else {
+                pw.print(ans);
+            }
+        }
 
     }
 
@@ -46,7 +98,8 @@ public class IOAdvanced {
     }
 
     private static long nextLong() throws IOException {
-        return Long.parseLong(nextLine());
+        st.nextToken();
+        return (long) st.nval;
     }
 
     private static double nextDouble() throws IOException {
