@@ -15,6 +15,20 @@ public class IOAdvanced {
     private static StreamTokenizer st;
     private static PrintWriter pw;
 
+    static int gcd(int a, int b) {
+        if (a < b) {
+            a ^= b;
+            b ^= a;
+            a ^= b;
+        }
+        while (b != 0) {
+            int tmp = a % b;
+            a = b;
+            b = tmp;
+        }
+        return a;
+    }
+
     private static void solve() throws IOException {
 
     }

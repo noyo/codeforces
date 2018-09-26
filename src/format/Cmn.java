@@ -27,17 +27,41 @@ public class Cmn {
         return c;
     }
 
+    static final int INF = 1000000007;
+
+    static int pow(long a, int n) {
+        long ans = 1;
+        while (n > 0) {
+            if ((n & 1) == 1) {
+                ans = (ans * a) % INF;
+            }
+            a = (a * a) % INF;
+            n >>= 1;
+        }
+        return (int) ans;
+    }
+
     /**
      * ps: n >= m, choose m from n;
      */
     private static int c(int n, int m) {
-        int c[] = new int[n];
-        c[0] = 1;
-        int min = Math.min(m, n - m);
-        for (int i = 1; i <= min; i++) {
-            c[i] = c[i - 1] * (n - i + 1) / i;
+        if (m > n) {
+            n ^= m;
+            m ^= n;
+            n ^= m;
         }
-        return c[m];
+        m = Math.min(m, n - m);
+
+        long top = 1;
+        long bot = 1;
+        for (int i = n - m + 1; i <= n; i++) {
+            top = (top * i) % INF;
+        }
+        for (int i = 1; i <= m; i++) {
+            bot = (bot * i) % INF;
+        }
+
+        return (int) ((top * pow(bot, INF - 2)) % INF);
     }
 
     public static void main(String args[]) {
