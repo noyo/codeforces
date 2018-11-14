@@ -1,7 +1,10 @@
-package format;
+package ECR53_d2;
 
 import java.io.*;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -10,7 +13,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +23,41 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = Integer.parseInt(nextLine());
+        char ch[] = nextLine().toCharArray();
+        int cnt[][] = new int[n][128];
+        for (int i = 0; i < n; i++) {
+            if (i == 0) {
+                cnt[0][ch[i]]++;
+            } else {
+                for (int j = 'a'; j <= 'z'; j++) {
+                    cnt[i][j] = cnt[i - 1][j];
+                }
+                cnt[i][ch[i]]++;
+            }
+        }
+        for (int k = 2; k <= n; k++) {
+            for (int i = 0; i < n; i++) {
+                boolean ok = true;
+                int j = i + k - 1;
+                if (j >= n) {
+                    break;
+                }
+                for (int l = 'a'; l <= 'z'; l++) {
+                    int tmp = cnt[j][l] - (i == 0 ? 0 : cnt[i - 1][l]);
+                    if (tmp > 0 && tmp > k / 2) {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    pw.println("YES");
+                    pw.print(String.valueOf(ch, i, k));
+                    return;
+                }
+            }
+        }
+        pw.print("NO");
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

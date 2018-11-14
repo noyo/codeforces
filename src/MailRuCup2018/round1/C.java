@@ -1,7 +1,7 @@
-package format;
+package MailRuCup2018.round1;
 
 import java.io.*;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,52 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        int l[] = new int[n];
+        int r[] = new int[n];
+        int a[] = new int[n];
+        int cnt = n;
+        List<Integer> max = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            l[i] = nextInt();
+        }
+        for (int i = 0; i < n; i++) {
+            r[i] = nextInt();
+            if ((l[i] | r[i]) == 0) {
+                a[i] = n;
+                max.add(i);
+                cnt--;
+            }
+        }
+        if (max.size() == 0) {
+            pw.print("NO");
+            return;
+        }
+        int cur = n - 1;
+        while (cnt > 0) {
+            int last = max.size();
+            for (int i = 0; i <= last; i++) {
+                int pre = i == 0 ? 0 : max.get(i - 1) + 1;
+                int rear = i < last ? max.get(i) : n;
+                for (int j = pre; j < rear; j++) {
+                    if (l[j] == i && r[j] == last - i) {
+                        a[j] = cur;
+                        max.add(j);
+                        cnt--;
+                    }
+                }
+            }
+            if (last == max.size()) {
+                pw.print("NO");
+                return;
+            }
+            cur--;
+            max.sort(Comparator.naturalOrder());
+        }
+        pw.println("YES");
+        for (int i = 0; i < n; i++) {
+            pw.format("%d%c", a[i], i < n - 1 ? ' ' : '\0');
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

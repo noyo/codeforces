@@ -1,4 +1,4 @@
-package format;
+package ECR54_d2;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,22 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = Integer.parseInt(nextLine());
+        String s = nextLine();
+        int idx = n;
+        for (int i = 1; i < n; i++) {
+            if (s.charAt(i) < s.charAt(i - 1)) {
+                idx = i - 1;
+                break;
+            }
+        }
+        if (idx == 0) {
+            pw.print(s.substring(1));
+        } else if (idx == n) {
+            pw.print(s.substring(0, s.length() - 1));
+        } else {
+            pw.print(s.substring(0, idx) + s.substring(idx + 1, s.length()));
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

@@ -1,6 +1,7 @@
-package format;
+package CFR516_d2;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +21,16 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int a[] = new int[3];
+        for (int i = 0; i < 3; i++) {
+            a[i] = nextInt();
+        }
+        Arrays.sort(a);
+        int ans = 0;
+        if (a[0] + a[1] <= a[2]) {
+            ans = a[2] - (a[0] + a[1]) + 1;
+        }
+        pw.print(ans);
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -209,8 +219,14 @@ public class IOAdvanced {
     }
 
     private static String next(int len) throws IOException {
-        st.nextToken();
-        return st.sval;
+        char ch[] = new char[len];
+        int cur = 0;
+        char c;
+        while ((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t') ;
+        do {
+            ch[cur++] = c;
+        } while (!((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t'));
+        return String.valueOf(ch, 0, cur);
     }
 
     private static int nextInt() throws IOException {

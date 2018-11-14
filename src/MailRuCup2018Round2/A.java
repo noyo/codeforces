@@ -1,4 +1,4 @@
-package format;
+package MailRuCup2018Round2;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,41 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        int s = nextInt();
+        int avail[] = new int[n + 1];
+        int a[] = new int[n + 1];
+        int b[] = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            a[i] = nextInt();
+        }
+        for (int i = 1; i <= n; i++) {
+            b[i] = nextInt();
+        }
+        if (a[1] == 0) {
+            pw.print("NO");
+            return;
+        }
+        if (a[s] == 1) {
+            pw.print("YES");
+            return;
+        }
+        if (b[s] == 0) {
+            pw.print("NO");
+            return;
+        }
+        boolean ok = false;
+        for (int i = s + 1; i <= n; i++) {
+            if (a[i] == 1 && b[i] == 1) {
+                ok = true;
+                break;
+            }
+        }
+        if (ok) {
+            pw.print("YES");
+        } else {
+            pw.print("NO");
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

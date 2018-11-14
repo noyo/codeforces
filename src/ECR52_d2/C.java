@@ -1,4 +1,4 @@
-package format;
+package ECR52_d2;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,35 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        int k = nextInt();
+        int min = INF;
+        int max = 0;
+        int cnt[] = new int[200005];
+        for (int i = 0; i < n; i++) {
+            int h = nextInt();
+            cnt[h]++;
+            min = Math.min(min, h);
+            max = Math.max(max, h);
+        }
+        int count = 0;
+        int ans = 0;
+        while (max > min) {
+            while (count <= k && max > min) {
+                count += cnt[max--];
+                cnt[max] += cnt[max + 1];
+            }
+            ans++;
+            if (count > k) {
+                count = cnt[max + 1];
+            } else {
+                count = 0;
+            }
+        }
+        if (count > 0) {
+            ans++;
+        }
+        pw.print(ans);
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -200,17 +228,15 @@ public class IOAdvanced {
         pw.flush();
     }
 
-    private static long[] anLong(int n) throws IOException {
-        long a[] = new long[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = nextInt();
-        }
-        return a;
-    }
-
     private static String next(int len) throws IOException {
-        st.nextToken();
-        return st.sval;
+        char ch[] = new char[len];
+        int cur = 0;
+        char c;
+        while ((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t') ;
+        do {
+            ch[cur++] = c;
+        } while (!((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t'));
+        return String.valueOf(ch);
     }
 
     private static int nextInt() throws IOException {

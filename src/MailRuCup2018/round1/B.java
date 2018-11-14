@@ -1,4 +1,4 @@
-package format;
+package MailRuCup2018.round1;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,23 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        boolean vis[] = new boolean[n + 2];
+        int max = 0;
+        int and = -1;
+        for (int i = 1; i <= n; i++) {
+            int a = nextInt();
+            if (a <= max) {
+                vis[a] = true;
+                while (vis[max]) {
+                    max++;
+                }
+            } else {
+                and = i;
+                break;
+            }
+        }
+        pw.print(and);
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

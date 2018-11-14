@@ -1,4 +1,4 @@
-package format;
+package MailRuCup2018Round2;
 
 import java.io.*;
 import java.util.Map;
@@ -20,6 +20,10 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
+        int n = nextInt();
+        int s = nextInt();
+        int m = nextInt();
+        int k = nextInt();
 
     }
 

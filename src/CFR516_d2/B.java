@@ -1,4 +1,4 @@
-package format;
+package CFR516_d2;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -19,8 +19,34 @@ public class IOAdvanced {
     static final int INF = 1000000007;
     static final int MOD = 1000000007;
 
-    private static void solve() throws IOException {
+    static int[] getBit(int num) {
+        int bit[] = new int[32];
+        int cur = 0;
+        while (num > 0) {
+            bit[cur++] = num % 2;
+            num >>= 1;
+        }
+        return bit;
+    }
 
+    private static void solve() throws IOException {
+        int t = nextInt();
+        while (t-- > 0) {
+            int a = nextInt();
+            long ans = 0;
+            int bit[] = getBit(a);
+            int cnt = 0;
+            for (int i = 0; i < bit.length; i++) {
+                if (bit[i] == 1) {
+                    cnt++;
+                }
+            }
+            pw.print(1 << cnt);
+
+            if (t > 0) {
+                pw.println();
+            }
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -209,8 +235,14 @@ public class IOAdvanced {
     }
 
     private static String next(int len) throws IOException {
-        st.nextToken();
-        return st.sval;
+        char ch[] = new char[len];
+        int cur = 0;
+        char c;
+        while ((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t') ;
+        do {
+            ch[cur++] = c;
+        } while (!((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t'));
+        return String.valueOf(ch, 0, cur);
     }
 
     private static int nextInt() throws IOException {

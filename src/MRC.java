@@ -1,6 +1,6 @@
-package format;
-
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class MRC {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,29 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        int sum[] = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            sum[i] = sum[i - 1] + nextInt();
+        }
+        int low = 0;
+        int high = n + 1;
+        while (low < high) {
+            int mid = (low + high) / 2;
+            boolean flag = false;
+            for (int i = mid; i <= n; i++) {
+                if ((sum[i] - sum[i - mid]) > 100 * mid) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        pw.print(Math.max(0, low - 1));
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -200,17 +222,15 @@ public class IOAdvanced {
         pw.flush();
     }
 
-    private static long[] anLong(int n) throws IOException {
-        long a[] = new long[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = nextInt();
-        }
-        return a;
-    }
-
     private static String next(int len) throws IOException {
-        st.nextToken();
-        return st.sval;
+        char ch[] = new char[len];
+        int cur = 0;
+        char c;
+        while ((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t') ;
+        do {
+            ch[cur++] = c;
+        } while (!((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t'));
+        return String.valueOf(ch, 0, cur);
     }
 
     private static int nextInt() throws IOException {

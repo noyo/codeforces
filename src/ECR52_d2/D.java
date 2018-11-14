@@ -1,7 +1,7 @@
-package format;
+package ECR52_d2;
 
 import java.io.*;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class D {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -19,8 +19,50 @@ public class IOAdvanced {
     static final int INF = 1000000007;
     static final int MOD = 1000000007;
 
-    private static void solve() throws IOException {
+    static class Pair {
+        int cnt;
+        int change;
 
+        Pair(int cnt, int change) {
+            this.change = change;
+            this.cnt = cnt;
+        }
+    }
+
+    private static void solve() throws IOException {
+        int n = nextInt();
+        int MAX = n * n;
+        int loc[][] = new int[MAX + 1][2];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                int val = nextInt();
+                loc[val][0] = i;
+                loc[val][1] = j;
+            }
+        }
+
+        List<Pair>[] pre = new List[3];
+        for (int i = 0; i < 3; i++) {
+            pre[i] = new ArrayList<>();
+        }
+        pre[0].add(new Pair(0, 0));
+        pre[1].add(new Pair(0, 0));
+        pre[2].add(new Pair(0, 0));
+        int px = loc[1][0], py = loc[1][1];
+        for (int i = 2; i <= MAX; i++) {
+            int rx = loc[i][0], ry = loc[i][1];
+            List<Pair>[] cur = new List[3];
+
+            pre = cur;
+        }
+
+//        Arrays.sort(pre, (o1, o2) -> {
+//            if (o1.cnt == o2.cnt) {
+//                return o1.change - o2.change;
+//            }
+//            return o1.cnt - o2.cnt;
+//        });
+//        pw.print(pre[0].cnt + " " + pre[0].change);
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -200,17 +242,15 @@ public class IOAdvanced {
         pw.flush();
     }
 
-    private static long[] anLong(int n) throws IOException {
-        long a[] = new long[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = nextInt();
-        }
-        return a;
-    }
-
     private static String next(int len) throws IOException {
-        st.nextToken();
-        return st.sval;
+        char ch[] = new char[len];
+        int cur = 0;
+        char c;
+        while ((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t') ;
+        do {
+            ch[cur++] = c;
+        } while (!((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t'));
+        return String.valueOf(ch, 0, cur);
     }
 
     private static int nextInt() throws IOException {

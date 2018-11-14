@@ -1,4 +1,4 @@
-package format;
+package ECR52_d2;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,29 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
+        long n = nextInt();
+        long m = Long.parseLong(next(12));
+        if (m == 0) {
+            pw.print(n + " " + n);
+            return;
+        }
+        int min = (int) Math.max(0, n - 2 * m);
+        long low = 0;
+        long high = n + 1;
+        while (low < high) {
+            long mid = (low + high) / 2;
+            if (m < (mid * (mid - 1)) / 2) {
+                high = mid;
+            } else if (m == (mid * (mid - 1)) / 2){
+                low = mid;
+                break;
+            } else {
+                low = mid + 1;
+            }
+        }
+        int max = Math.max(0, (int) (n - low));
 
+        pw.print(min + " " + max);
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -200,17 +222,15 @@ public class IOAdvanced {
         pw.flush();
     }
 
-    private static long[] anLong(int n) throws IOException {
-        long a[] = new long[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = nextInt();
-        }
-        return a;
-    }
-
     private static String next(int len) throws IOException {
-        st.nextToken();
-        return st.sval;
+        char ch[] = new char[len];
+        int cur = 0;
+        char c;
+        while ((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t') ;
+        do {
+            ch[cur++] = c;
+        } while (!((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t'));
+        return String.valueOf(ch, 0, cur);
     }
 
     private static int nextInt() throws IOException {

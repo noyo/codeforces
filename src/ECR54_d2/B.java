@@ -1,4 +1,4 @@
-package format;
+package ECR54_d2;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,25 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
+        long n = Long.parseLong(nextLine());
+        if (n % 2 == 0) {
+            pw.print(n / 2);
+        } else {
+            pw.print(prime(n));
+        }
+    }
 
+    private static long prime(long n) {
+        long sqrt = (long) Math.sqrt(n + 0.5);
+        for (int i = 3; i <= sqrt; i += 2) {
+            if (n % i == 0) {
+                long ans;
+                n -= i;
+                ans = n / 2 + 1;
+                return ans;
+            }
+        }
+        return 1;
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -54,35 +72,6 @@ public class IOAdvanced {
         return p;
     }
 
-    // 18位素数：154590409516822759
-    // 19位素数：2305843009213693951 (梅森素数)
-    // 19位素数：4384957924686954497
-    static boolean isPrime(long n) { //determines if n is a prime number
-        int p[] = {2, 3, 5, 233, 331};
-        int pn = p.length;
-        long s = 0, t = n - 1;//n - 1 = 2^s * t
-        while ((t & 1) == 0) {
-            t >>= 1;
-            ++s;
-        }
-        for (int i = 0; i < pn; ++i) {
-            if (n == p[i]) {
-                return true;
-            }
-            long pt = pow(p[i], t, n);
-            for (int j = 0; j < s; ++j) {
-                long cur = llMod(pt, pt, n);
-                if (cur == 1 && pt != 1 && pt != n - 1) {
-                    return false;
-                }
-                pt = cur;
-            }
-            if (pt != 1) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     static long llMod(long a, long b, long mod) {
         return (a * b - (long) ((double) a / mod * b + 0.5) * mod + mod) % mod;

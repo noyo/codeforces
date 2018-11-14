@@ -1,6 +1,8 @@
-package format;
+package CFR519;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +22,38 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        int a[] = new int[n + 1];
+        int b[] = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            a[i] = nextInt();
+            b[i] = a[i] - a[i - 1];
+        }
+        List<Integer> ans = new ArrayList<>();
+        for (int k = 1; k < n; k++) {
+            boolean ok = true;
+            for (int j = 1; j <= k; j++) {
+                int cur = j + k;
+                while (cur <= n) {
+                    if (b[cur] != b[cur - k]) {
+                        ok = false;
+                        break;
+                    }
+                    cur += k;
+                }
+            }
+            if (ok) {
+                ans.add(k);
+            }
+        }
+        ans.add(n);
+        pw.println(ans.size());
+        for (int i = 0; i < ans.size(); i++) {
+            pw.print(ans.get(i));
+            if (i < ans.size() - 1) {
+                pw.print(" ");
+            }
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

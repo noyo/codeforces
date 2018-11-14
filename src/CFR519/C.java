@@ -1,4 +1,4 @@
-package format;
+package CFR519;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,26 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        char ch[] = nextLine().toCharArray();
+        int n = ch.length;
+        int ans[] = new int[n];
+        for (int i = 0; i < n - 1; i++) {
+            if (ch[i] == 'b' && ch[i + 1] == 'a') {
+                int j = i + 1;
+                ans[i] = 1;
+                while (j + 1 < n && ch[j + 1] == 'a') {
+                    j++;
+                }
+                ans[j] = 1;
+                i = j;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            pw.print(ans[i]);
+            if (i < n - 1) {
+                pw.print(" ");
+            }
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

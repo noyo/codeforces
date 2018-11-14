@@ -1,7 +1,9 @@
-package format;
+package ECR53_d2;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -10,7 +12,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +22,93 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
+        int n = Integer.parseInt(nextLine());
+        char move[] = nextLine().toCharArray();
+        int tx = nextInt();
+        int ty = nextInt();
+        int target = Math.abs(tx) + Math.abs(ty);
+        if (target > n || (target - n) % 2 != 0) {
+            pw.print(-1);
+            return;
+        }
+        int sum[][] = new int[n + 1][4];
+        Map<Character, Integer> idx = new HashMap<>();
+        idx.put('U', 0);
+        idx.put('D', 1);
+        idx.put('L', 2);
+        idx.put('R', 3);
 
+        for (int i = 1; i <= n; i++) {
+            int j = idx.get(move[i - 1]);
+            sum[i][j]++;
+            if (i > 0) {
+                for (int k = 0; k < 4; k++) {
+                    sum[i][k] += sum[i - 1][k];
+                }
+            }
+        }
+
+        int cury = sum[n][0] - sum[n][1];
+        int curx = sum[n][3] - sum[n][2];
+        ty = ty - cury;
+        tx = tx - curx;
+        if (tx == 0 && ty == 0) {
+            pw.print(0);
+            return;
+        }
+
+        int low = 0;
+        int high = n;
+        while (low < high) {
+            boolean ok = false;
+            int mid = (low + high) / 2;
+            for (int i = mid; i <= n; i++) {
+                int u = sum[i][0] - sum[i - mid][0];
+                int d = sum[i][1] - sum[i - mid][1];
+                int l = sum[i][2] - sum[i - mid][2];
+                int r = sum[i][3] - sum[i - mid][3];
+                int s = Math.abs(tx) + Math.abs(ty);
+                if (ty >= 0 && tx >= 0) {
+                    int dd = Math.min(d, Math.abs(ty));
+                    int ll = Math.min(l, Math.abs(tx));
+                    s -= dd + ll;
+                    if (s <= (dd + ll) &&                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 (dd + ll - s) % 2 == 0) {
+                        ok = true;
+                        break;
+                    }
+                } else if (ty < 0 && tx >= 0) {
+                    int dd = Math.min(u, Math.abs(ty));
+                    int ll = Math.min(l, Math.abs(tx));
+                    s -= dd + ll;
+                    if (s <= (dd + ll) && (dd + ll - s) % 2 == 0) {
+                        ok = true;
+                        break;
+                    }
+                } else if (ty < 0 && tx < 0) {
+                    int dd = Math.min(u, Math.abs(ty));
+                    int ll = Math.min(r, Math.abs(tx));
+                    s -= dd + ll;
+                    if (s <= (dd + ll) && (dd + ll - s) % 2 == 0) {
+                        ok = true;
+                        break;
+                    }
+                } else if (ty >= 0 && tx < 0) {
+                    int dd = Math.min(d, Math.abs(ty));
+                    int ll = Math.min(r, Math.abs(tx));
+                    s -= dd + ll;
+                    if (s <= (dd + ll) && (dd + ll - s) % 2 == 0) {
+                        ok = true;
+                        break;
+                    }
+                }
+            }
+            if (ok) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        pw.print(low);
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

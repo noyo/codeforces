@@ -1,6 +1,8 @@
-package format;
+package ECR53_d2;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class B {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +22,30 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        int a[] = new int[n + 1];
+        int level[] = new int[n + 1];
+        int pre = 0;
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            a[i] = nextInt();
+            level[a[i]] = i;
+        }
+        for (int i = 1; i <= n; i++) {
+            int b = nextInt();
+            if (level[b] > pre) {
+                ans.add(level[b] - pre);
+                pre = level[b];
+            } else {
+                ans.add(0);
+            }
+        }
+        for (int i = 0; i < ans.size(); i++) {
+            pw.print(ans.get(i));
+            if (i < ans.size() - 1) {
+                pw.print(" ");
+            }
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

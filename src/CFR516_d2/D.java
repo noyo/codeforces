@@ -1,7 +1,9 @@
-package format;
+package CFR516_d2;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * Copyright © 2018 Chris. All rights reserved.
@@ -10,7 +12,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class D {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -18,9 +20,171 @@ public class IOAdvanced {
 
     static final int INF = 1000000007;
     static final int MOD = 1000000007;
+    static int R;
+    static int C;
+    static char[][] grid;
+
+    static int dir[] = new int[]{0, -1, 0, 1, 0};
+
+    static boolean legal(int r, int c) {
+        return r > 0 && r <= R && c > 0 && c <= C;
+    }
+
+    static boolean VX[][];
+    static boolean VY[][];
 
     private static void solve() throws IOException {
+        R = nextInt();
+        C = nextInt();
+        int sr = nextInt();
+        int sc = nextInt();
+        int x = nextInt();
+        int y = nextInt();
+        nextLine();
+        grid = new char[R + 1][C + 1];
+        for (int i = 1; i <= R; i++) {
+            char[] ch = nextLine().toCharArray();
+            for (int j = 0; j < C; j++) {
+                grid[i][j + 1] = ch[j];
+            }
+        }
 
+        VX = new boolean[R + 1][C + 1];
+        VY = new boolean[R + 1][C + 1];
+        VX[sr][sc] = true;
+        VY[sr][sc] = true;
+        int cntX[][] = new int[R + 1][C + 1];
+        int cntY[][] = new int[R + 1][C + 1];
+        cntX[sr][sc] = x;
+        cntY[sr][sc] = y;
+//        bfsX(cntX, sr, sc, x);
+//        bfsY(cntY, sr, sc, y);
+
+        Queue<int[]> queue = new LinkedList<>();
+        if (y < R * C) {
+            queue.offer(new int[]{sr, sc, y});
+            while (!queue.isEmpty()) {
+                int k = queue.size();
+                while (k-- > 0) {
+                    int[] tmp = queue.poll();
+                    for (int i = 0; i < 4; i++) {
+                        if (i == 2 && tmp[2] <= 0) {
+                            continue;
+                        }
+                        int r = tmp[0] + dir[i];
+                        int c = tmp[1] + dir[i + 1];
+                        if (!legal(r, c) || grid[r][c] == '*') {
+                            continue;
+                        }
+                        if (VY[r][c] && cntY[r][c] >= tmp[2]) {
+                            continue;
+                        }
+                        VY[r][c] = true;
+                        if (i == 2) {
+                            cntY[r][c] = tmp[2] - 1;
+                            queue.offer(new int[]{r, c, tmp[2] - 1});
+                        } else {
+                            cntY[r][c] = tmp[2];
+                            queue.offer(new int[]{r, c, tmp[2]});
+                        }
+                    }
+                }
+            }
+        }
+
+        if (x < R * C) {
+            queue.clear();
+            queue.offer(new int[]{sr, sc, x});
+            while (!queue.isEmpty()) {
+                int k = queue.size();
+                while (k-- > 0) {
+                    int[] tmp = queue.poll();
+                    for (int i = 0; i < 4; i++) {
+                        if (i == 0 && tmp[2] <= 0) {
+                            continue;
+                        }
+                        int r = tmp[0] + dir[i];
+                        int c = tmp[1] + dir[i + 1];
+                        if (!legal(r, c) || grid[r][c] == '*') {
+                            continue;
+                        }
+                        if (VX[r][c] && cntX[r][c] >= tmp[2]) {
+                            continue;
+                        }
+                        VX[r][c] = true;
+                        if (i == 0) {
+                            cntX[r][c] = tmp[2] - 1;
+                            queue.offer(new int[]{r, c, tmp[2] - 1});
+                        } else {
+                            cntX[r][c] = tmp[2];
+                            queue.offer(new int[]{r, c, tmp[2]});
+                        }
+                    }
+                }
+            }
+        }
+
+        int ans = 0;
+        for (int i = 1; i <= R; i++) {
+            for (int j = 1; j <= C; j++) {
+                if (grid[i][j] == '*') {
+                    continue;
+                }
+                if ((x >= R * C || VX[i][j]) && (VY[i][j] || y >= R * C)) {
+                    ans++;
+                }
+            }
+        }
+        pw.print(ans);
+    }
+
+
+    private static void bfsY(int cnt[][], int sr, int sc, int cur) {
+        for (int i = 0; i < 4; i++) {
+            if (i == 2 && cur <= 0) {
+                continue;
+            }
+            int r = sr + dir[i];
+            int c = sc + dir[i + 1];
+            if (!legal(r, c) || grid[r][c] == '*') {
+                continue;
+            }
+            if (VY[r][c] && cnt[r][c] >= cur) {
+                continue;
+            }
+            VY[r][c] = true;
+            if (i == 2) {
+                cnt[r][c] = cur - 1;
+                bfsY(cnt, r, c, cur - 1);
+            } else {
+                cnt[r][c] = cur;
+                bfsY(cnt, r, c, cur);
+            }
+        }
+    }
+
+    private static void bfsX(int cnt[][], int sr, int sc, int cur) {
+        for (int i = 0; i < 4; i++) {
+            if (i == 0 && cur <= 0) {
+                continue;
+            }
+            int r = sr + dir[i];
+            int c = sc + dir[i + 1];
+            if (!legal(r, c) || grid[r][c] == '*') {
+                continue;
+            }
+            if (VX[r][c] && cnt[r][c] >= cur) {
+                continue;
+            }
+            VX[r][c] = true;
+            if (i == 0) {
+                cnt[r][c] = cur - 1;
+                bfsX(cnt, r, c, cur - 1);
+            } else {
+                cnt[r][c] = cur;
+                bfsX(cnt, r, c, cur);
+            }
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -209,8 +373,14 @@ public class IOAdvanced {
     }
 
     private static String next(int len) throws IOException {
-        st.nextToken();
-        return st.sval;
+        char ch[] = new char[len];
+        int cur = 0;
+        char c;
+        while ((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t') ;
+        do {
+            ch[cur++] = c;
+        } while (!((c = (char) br.read()) == '\n' || c == '\r' || c == ' ' || c == '\t'));
+        return String.valueOf(ch, 0, cur);
     }
 
     private static int nextInt() throws IOException {

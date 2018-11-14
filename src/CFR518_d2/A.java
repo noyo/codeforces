@@ -1,4 +1,4 @@
-package format;
+package CFR518_d2;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class A {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,22 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
+        String[] ss = nextSS(" ");
+        long n = Long.parseLong(ss[0]);
+        long m = Long.parseLong(ss[1]);
+        long k = Long.parseLong(ss[2]);
+        long l = Long.parseLong(ss[3]);
 
+        if (l + k > n) {
+            pw.print(-1);
+            return;
+        }
+        long ans = (k + l + m - 1) / m;
+        if (ans * m > n) {
+            pw.print(-1);
+        } else {
+            pw.print(ans);
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

@@ -1,6 +1,9 @@
-package format;
+package CFR518_d2;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,7 +13,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +23,36 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
-
+        int n = nextInt();
+        int m = nextInt();
+        Map<Integer, Integer> loc = new HashMap<>();
+        List<int[]>[] ans = new List[n + 1];
+        for (int i = 1; i <= n; i++) {
+            ans[i] = new ArrayList<>();
+            loc.put(i, i * 1000);
+            ans[i].add(new int[] {loc.get(i), loc.get(i)});
+        }
+        for (int i = 0; i < m; i++) {
+            int from = nextInt();
+            int to = nextInt();
+            if (from > to) {
+                from ^= to;
+                to ^= from;
+                from ^= to;
+            }
+            loc.put(from, loc.get(from) + 1);
+            loc.put(to, loc.get(to) + 1);
+            ans[from].add(new int[] {from * 1000, loc.get(from)});
+            ans[to].add(new int[] {to * 1000, loc.get(to)});
+            ans[from].add(new int[] {loc.get(to), loc.get(from)});
+            ans[to].add(new int[] {loc.get(to), loc.get(to)});
+        }
+        for (int i = 1; i <= n; i++) {
+            pw.println(ans[i].size());
+            for (int j = 0; j < ans[i].size(); j++) {
+                pw.println(ans[i].get(j)[0] + " " + ans[i].get(j)[1]);
+            }
+        }
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {

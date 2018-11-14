@@ -1,4 +1,4 @@
-package format;
+package MailRuCup2018Round2;
 
 import java.io.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018/7/9 15:33
  * @see format
  */
-public class IOAdvanced {
+public class C {
 
     private static BufferedReader br;
     private static StreamTokenizer st;
@@ -20,7 +20,38 @@ public class IOAdvanced {
     static final int MOD = 1000000007;
 
     private static void solve() throws IOException {
+        long la = nextInt();
+        long ra = nextInt();
+        long ta = nextInt();
+        long lb = nextInt();
+        long rb = nextInt();
+        long tb = nextInt();
+        if (ra > rb) {
+            ra ^= rb;
+            rb ^= ra;
+            ra ^= rb;
 
+            la ^= lb;
+            lb ^= la;
+            la ^= lb;
+        }
+        long ans = 0;
+        long g = gcd(ta, tb);
+        if (g == 1) {
+            ans = Math.min(ra - la, rb - lb) + 1;
+        } else {
+            ta = g;
+            long k = (rb - ra) / ta;
+            ra += k * ta;
+            la += k * ta;
+            ans = Math.max(ans, ra - Math.max(la, lb) + 1);
+            ra += ta;
+            la += ta;
+            if (la <= rb) {
+                ans = Math.max(ans, rb - Math.max(lb, la) + 1);
+            }
+        }
+        pw.print(ans);
     }
 
     static void getDiv(Map<Integer, Integer> map, int n) {
@@ -161,14 +192,14 @@ public class IOAdvanced {
         return (int) ((top * pow(bot, MOD - 2)) % MOD);
     }
 
-    static int gcd(int a, int b) {
+    static long gcd(long a, long b) {
         if (a < b) {
             a ^= b;
             b ^= a;
             a ^= b;
         }
         while (b != 0) {
-            int tmp = a % b;
+            long tmp = a % b;
             a = b;
             b = tmp;
         }
